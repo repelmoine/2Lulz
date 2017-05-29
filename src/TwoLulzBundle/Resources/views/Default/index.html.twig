@@ -1,5 +1,15 @@
+{% extends '::base.html.twig' %}
+{% block body %}
 2Lulz by Clément Gil & Rémi Pelmoine
 <form action="#" method="post">
     {{form_widget(form)}}
     <input type="submit"/>
 </form>
+
+    <h1>All Posts From Our Community</h1>
+    {% for post in posts %}
+        <h2>{{post.title}}</h2>
+        <img src="{{post.image}}" alt="image_du_post"/>
+        <h4>{{post.score}}</h4>
+    {% endfor %}
+{% endblock %}

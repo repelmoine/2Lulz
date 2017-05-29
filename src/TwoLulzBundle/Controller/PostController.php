@@ -11,6 +11,9 @@ class PostController extends Controller{
     {
         $post = new Post();
         $form = $this->createForm(PostType::class,$post);
-        return $this->render('TwoLulzBundle:Default:index.html.twig', ['form' => $form->createView(),]);
+        $em = $this->getDoctrine()->getManager();
+        $repository = $em->getRepository('TwoLulzBundle:Post');
+        $allPosts = $repository->findAll();
+        return $this->render('TwoLulzBundle:Default:index.html.twig', ['form' => $form->createView(), 'posts' => $allPosts]);
     }
 }
