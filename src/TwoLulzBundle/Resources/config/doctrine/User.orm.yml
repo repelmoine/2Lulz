@@ -1,0 +1,19 @@
+TwoLulzBundle\Entity\User:
+    type: entity
+    table: null
+    repositoryClass: TwoLulzBundle\Repository\UserRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        login:
+            type: string
+            length: 255
+            unique: true
+        password:
+            type: string
+            length: 255
+    lifecycleCallbacks: {  }

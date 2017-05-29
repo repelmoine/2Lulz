@@ -1,9 +1,9 @@
 <?php
 
-namespace AppBundle;
+namespace TwoLulzBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class AppBundle extends Bundle
+class TwoLulzBundle extends Bundle
 {
 }
