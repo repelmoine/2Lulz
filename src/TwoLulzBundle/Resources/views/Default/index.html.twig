@@ -1,6 +1,7 @@
 {% extends '::base.html.twig' %}
 {% block body %}
-2Lulz by Clément Gil & Rémi Pelmoine
+<div class="col-md-12">
+    <h1>2Lulz by Clément Gil & Rémi Pelmoine</h1>
 <form action="#" method="post">
     {{form_widget(form)}}
     <input type="submit"/>
@@ -12,4 +13,5 @@
         <img src="{{post.image}}" alt="image_du_post"/>
         <h4>{{post.score}}</h4>
     {% endfor %}
+</div>
 {% endblock %}
