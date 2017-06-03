@@ -1,3 +1,6 @@
 two_lulz_homepage:
     path: /
     defaults: {_controller:TwoLulzBundle:Post:index}
+form_image:
+    path:     /form
+    defaults: { _controller:TwoLulzBundle:Post:new }

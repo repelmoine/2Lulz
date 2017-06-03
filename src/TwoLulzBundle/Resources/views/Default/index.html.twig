@@ -1,17 +1,41 @@
 {% extends '::base.html.twig' %}
 {% block body %}
-<div class="col-md-12">
-    <h1>2Lulz by Clément Gil & Rémi Pelmoine</h1>
-<form action="#" method="post">
-    {{form_widget(form)}}
-    <input type="submit"/>
-</form>
+<div class="container">
+    <h1 class="center-content">2Lulz by Clément Gil & Rémi Pelmoine</h1>
+    <div class="row">
+        <form action="form" method="post">
+            <div class="input-field col s12">
+                {{form_widget(form.title,{ 'id':'title','attr': {'class': 'validate col s4'} })}}
+                <label for="title">Title</label>
+                <div class="file-field input-field">
+                <div class="btn tomato">
+                  <span>File</span>
+                   {{form_widget(form.image, { 'attr': {'class': 'col s4'} })}}
+                </div>
+                <div class="file-path-wrapper col s4">
+                  <input class="file-path validate"  type="text">
+                </div>
+                <button class="btn waves-effect waves-light tomato" type="submit" name="action">Add <i class="material-icons right">send</i> </button>
+              </div>    
+            </div>
+            
+        </form>
+    </div>
 
-    <h1>All Posts From Our Community</h1>
+
+    <h2 class="center-content">All Posts From Our Community</h2>
     {% for post in posts %}
-        <h2>{{post.title}}</h2>
+        <div class="card center-content">
+        <h3>{{post.title}}</h3>
         <img src="{{post.image}}" alt="image_du_post"/>
         <h4>{{post.score}}</h4>
+        <h4>Commentaires:</h4>
+        {%for comment in comments %}
+            {% if comment.post.id == post.id %}
+            <h4>{{comment.text}}</h4>
+            {% endif %}
+        {% endfor %}
+        </div>
     {% endfor %}
 </div>
 {% endblock %}
