@@ -1,6 +1,6 @@
 TwoLulzBundle\Entity\User:
     type: entity
-    table: null
+    table: fos_user
     repositoryClass: TwoLulzBundle\Repository\UserRepository
     id:
         id:
@@ -8,12 +8,4 @@ TwoLulzBundle\Entity\User:
             id: true
             generator:
                 strategy: AUTO
-    fields:
-        login:
-            type: string
-            length: 255
-            unique: true
-        password:
-            type: string
-            length: 255
     lifecycleCallbacks: {  }

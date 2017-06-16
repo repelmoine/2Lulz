@@ -1,29 +1,38 @@
 {% extends '::base.html.twig' %}
 {% block body %}
+    <nav style="background-color:#1976d2">
+        <div class="nav-wrapper">
+            <a href="#" class="brand-logo center">2Lulz by Clément Gil & Rémi Pelmoine</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="app_dev.php/login">Login</a></li>
+            </ul>
+        </div>
+    </nav>
+
+
 <div class="container">
-    <h1 class="center-content">2Lulz by Clément Gil & Rémi Pelmoine</h1>
-    <div class="row">
-        <form action="form" method="post">
-            <div class="input-field col s12">
-                {{form_widget(form.title,{ 'id':'title','attr': {'class': 'validate col s4'} })}}
-                <label for="title">Title</label>
-                <div class="file-field input-field">
-                <div class="btn tomato">
-                  <span>File</span>
-                   {{form_widget(form.image, { 'attr': {'class': 'col s4'} })}}
+    <div class="card center-content">
+        <div class="row">
+            <form action="app_dev.php/form" method="post">
+                <div class="input-field col s12">
+                    {{form_widget(form.title,{ 'id':'title','attr': {'class': 'validate col s4'} })}}
+                    <label for="title">Title</label>
+                    <div class="file-field input-field">
+                        <div class="btn tomato">
+                            <span>File</span>
+                            {{form_widget(form.image, { 'attr': {'class': 'col s4'} })}}
+                        </div>
+                        <div class="file-path-wrapper col s4">
+                            <input class="file-path validate"  type="text">
+                        </div>
+                        <button class="btn waves-effect waves-light tomato" type="submit" name="action">Add <i class="material-icons right">send</i> </button>
+                    </div>
                 </div>
-                <div class="file-path-wrapper col s4">
-                  <input class="file-path validate"  type="text">
-                </div>
-                <button class="btn waves-effect waves-light tomato" type="submit" name="action">Add <i class="material-icons right">send</i> </button>
-              </div>    
-            </div>
-            
-        </form>
+
+            </form>
+        </div>
     </div>
-
-
-    <h2 class="center-content">All Posts From Our Community</h2>
+    <h2 style="color:white" class="center-content">All Posts From Our Community</h2>
     {% for post in posts %}
         <div class="card center-content">
         <h3>{{post.title}}</h3>

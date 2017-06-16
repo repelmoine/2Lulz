@@ -5,6 +5,7 @@ namespace TwoLulzBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use \TwoLulzBundle\Entity\Post;
 use \TwoLulzBundle\Form\PostType;
+use Symfony\Component\HttpFoundation\Request;
 
 class PostController extends Controller{
     public function indexAction()
@@ -20,33 +21,37 @@ class PostController extends Controller{
         return $this->render('TwoLulzBundle:Default:index.html.twig', ['form' => $form->createView(), 'posts' => $allPosts, 'comments' => $allComments]);
     }
     
-    public function newAction(Request $request)
+    public function newAction()
     {
+
         $post = new Post();
         $form = $this->createForm(PostType::class, $post);
-        $form->handleRequest($request);
+        //$form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            // $file stores the uploaded PDF file
-            /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
-            $file = $post->getImage();
+        //if ($form->isSubmitted() && $form->isValid()) {
 
-            // Generate a unique name for the file before saving it
+            /**$file = $post->getImage();
             $fileName = md5(uniqid()).'.'.$file->guessExtension();
-
-            // Move the file to the directory where brochures are stored
             $file->move(
                 $this->getParameter('images'),
                 $fileName
             );
+            $post->setImage($fileName);**/
+            $title = $form->getData();
+            //$file = $form["file"]->getData();
+            $em = $this->getDoctrine()->getManager();
+            $post->setTitle($title);
+            $repository = $em->getRepository('TwoLulzBundle:User');
+            $user = $repository->find(1);
+            $post->setUser($user);
+            //$post->setImage();
 
-            // Update the 'brochure' property to store the PDF file name
-            // instead of its contents
-            $post->setImage($fileName);
+            $em->persist($post);
 
             // ... persist the $product variable or any other work
 
             return $this->forward('TwoLulzBundle:Post:index');
-        }
+        //}
+        //return $this->forward('TwoLulzBundle:Post:index');
     }
 }
