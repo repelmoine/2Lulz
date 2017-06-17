@@ -13,7 +13,7 @@
 <div class="container">
     <div class="card center-content">
         <div class="row">
-            <form action="app_dev.php/form" method="post">
+            <form action="{{ path('addPost')}}" method="post">
                 <div class="input-field col s12">
                     {{form_widget(form.title,{ 'id':'title','attr': {'class': 'validate col s4'} })}}
                     <label for="title">Title</label>

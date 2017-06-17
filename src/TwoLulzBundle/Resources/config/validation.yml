@@ -1,0 +1,8 @@
+TwoLulzBundle\Entity\Post:
+   properties:
+        image:
+            - Image:
+                minWidth: 200
+                maxWidth: 400
+                minHeight: 200
+                maxHeight: 400

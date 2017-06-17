@@ -21,14 +21,15 @@ class PostController extends Controller{
         return $this->render('TwoLulzBundle:Default:index.html.twig', ['form' => $form->createView(), 'posts' => $allPosts, 'comments' => $allComments]);
     }
     
-    public function newAction()
+    public function newAction(Request $request)
     {
 
         $post = new Post();
         $form = $this->createForm(PostType::class, $post);
-        //$form->handleRequest($request);
+        $form->handleRequest($request);
 
-        //if ($form->isSubmitted() && $form->isValid()) {
+
+        if ($form->isSubmitted() && $form->isValid()) {
 
             /**$file = $post->getImage();
             $fileName = md5(uniqid()).'.'.$file->guessExtension();
@@ -37,21 +38,25 @@ class PostController extends Controller{
                 $fileName
             );
             $post->setImage($fileName);**/
-            $title = $form->getData();
-            //$file = $form["file"]->getData();
             $em = $this->getDoctrine()->getManager();
+            $post = $form->getData();
+            $post->setScore(0);
+            $em->persist($post);
+            $em->flush();
+            //$file = $form["file"]->getData();
+            /**
             $post->setTitle($title);
             $repository = $em->getRepository('TwoLulzBundle:User');
             $user = $repository->find(1);
-            $post->setUser($user);
+            $post->setUser($user);**/
             //$post->setImage();
 
-            $em->persist($post);
+
 
             // ... persist the $product variable or any other work
 
-            return $this->forward('TwoLulzBundle:Post:index');
-        //}
-        //return $this->forward('TwoLulzBundle:Post:index');
+            //return $this->redirectToRoute('two_lulz_homepage');
+        }
+        return $this->redirectToRoute('two_lulz_homepage');
     }
 }
