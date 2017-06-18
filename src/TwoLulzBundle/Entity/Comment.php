@@ -13,9 +13,19 @@ class Comment
     private $id;
 
     /**
+     * @var \TwoLulzBundle\Entity\Post
+     */
+    private $post;
+
+    /**
      * @var string
      */
     private $text;
+
+    /**
+     * @var \TwoLulzBundle\Entity\User
+     */
+    private $user;
 
 
     /**
@@ -51,11 +61,6 @@ class Comment
     {
         return $this->text;
     }
-    /**
-     * @var \TwoLulzBundle\Entity\Post
-     */
-    private $post;
-
 
     /**
      * Set post
@@ -64,7 +69,7 @@ class Comment
      *
      * @return Comment
      */
-    public function setPost(\TwoLulzBundle\Entity\Post $post = null)
+    public function setPost($post = null)
     {
         $this->post = $post;
 
@@ -79,5 +84,29 @@ class Comment
     public function getPost()
     {
         return $this->post;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \TwoLulzBundle\Entity\User $user
+     *
+     * @return Comment
+     */
+    public function setUser($user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \TwoLulzBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

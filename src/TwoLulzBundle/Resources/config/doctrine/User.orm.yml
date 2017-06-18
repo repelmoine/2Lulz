@@ -8,4 +8,8 @@ TwoLulzBundle\Entity\User:
             id: true
             generator:
                 strategy: AUTO
+    oneToMany:
+          comments:
+            targetEntity: Comment
+            mappedBy: user
     lifecycleCallbacks: {  }

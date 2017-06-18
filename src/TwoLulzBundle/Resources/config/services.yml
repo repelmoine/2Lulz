@@ -2,3 +2,7 @@ services:
 #    two_lulz.example:
 #        class: TwoLulzBundle\Example
 #        arguments: ["@service_id", "plain_value", "%parameter%"]
+     imageUploader:
+              class: TwoLulzBundle\Service\ImageUploader
+              arguments:
+                   $targetDir: '%images%'

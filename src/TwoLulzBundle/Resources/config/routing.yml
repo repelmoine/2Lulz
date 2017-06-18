@@ -1,6 +1,11 @@
 two_lulz_homepage:
     path: /
     defaults: {_controller:TwoLulzBundle:Post:index}
-addPost:
-    path:     /form
-    defaults: { _controller:TwoLulzBundle:Post:new }
+
+posts:
+    type: rest
+    resource: "@TwoLulzBundle/Controller/PostController.php"
+
+comments:
+    type: rest
+    resource: "@TwoLulzBundle/Controller/CommentController.php"

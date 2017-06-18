@@ -1,6 +1,6 @@
 TwoLulzBundle\Entity\Post:
     type: entity
-    table: null
+    table: post
     repositoryClass: TwoLulzBundle\Repository\PostRepository
     id:
         id:

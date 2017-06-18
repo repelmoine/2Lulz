@@ -1,6 +1,6 @@
 TwoLulzBundle\Entity\Comment:
     type: entity
-    table: null
+    table: comment
     repositoryClass: TwoLulzBundle\Repository\CommentRepository
     id:
         id:
@@ -18,5 +18,11 @@ TwoLulzBundle\Entity\Comment:
         inversedBy: comments
         joinColumn:
           name: post_id
+          referencedColumnName: id
+      user:
+        targetEntity: User
+        inversedBy: comments
+        joinColumn:
+          name: user_id
           referencedColumnName: id
     lifecycleCallbacks: {  }

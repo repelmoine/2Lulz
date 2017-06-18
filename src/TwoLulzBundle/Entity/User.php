@@ -25,4 +25,43 @@ class User extends BaseUser
 
 
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $comments;
+
+
+    /**
+     * Add comment
+     *
+     * @param \TwoLulzBundle\Entity\Comment $comment
+     *
+     * @return User
+     */
+    public function addComment(\TwoLulzBundle\Entity\Comment $comment)
+    {
+        $this->comments[] = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Remove comment
+     *
+     * @param \TwoLulzBundle\Entity\Comment $comment
+     */
+    public function removeComment(\TwoLulzBundle\Entity\Comment $comment)
+    {
+        $this->comments->removeElement($comment);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
 }

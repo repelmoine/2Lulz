@@ -39,6 +39,14 @@ class Post
     }
 
     /**
+     * @param int $id
+     */
+    public function setId(int $id)
+    {
+        $this->id = $id;
+    }
+
+    /**
      * Set title
      *
      * @param string $title

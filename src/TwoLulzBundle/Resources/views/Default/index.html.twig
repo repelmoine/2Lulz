@@ -1,50 +1,83 @@
 {% extends '::base.html.twig' %}
 {% block body %}
-    <nav style="background-color:#1976d2">
+    <nav style="background-color:rgba(128, 211, 249, 1);">
         <div class="nav-wrapper">
             <a href="#" class="brand-logo center">2Lulz by Clément Gil & Rémi Pelmoine</a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li><a href="app_dev.php/login">Login</a></li>
+                <div>
+                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                        <li><a href="{{ path('fos_user_security_logout') }}">
+                            Déconnexion
+                        </a></li>
+                    {% else %}
+                        <li><a href="/login">Connexion</a></li>
+                    {% endif %}
+                </div>
+
             </ul>
         </div>
     </nav>
 
 
 <div class="container">
-    <div class="card center-content">
+    <div class="card center-content col l12" style="padding: 20px; margin-top: 40px;">
+        {{ form_start(form, {'method': 'POST', 'action' : '/posts'}) }}
         <div class="row">
-            <form action="{{ path('addPost')}}" method="post">
-                <div class="input-field col s12">
-                    {{form_widget(form.title,{ 'id':'title','attr': {'class': 'validate col s4'} })}}
-                    <label for="title">Title</label>
-                    <div class="file-field input-field">
-                        <div class="btn tomato">
-                            <span>File</span>
-                            {{form_widget(form.image, { 'attr': {'class': 'col s4'} })}}
-                        </div>
-                        <div class="file-path-wrapper col s4">
-                            <input class="file-path validate"  type="text">
-                        </div>
-                        <button class="btn waves-effect waves-light tomato" type="submit" name="action">Add <i class="material-icons right">send</i> </button>
-                    </div>
+            <div class="input-field col l6">
+                {{form_widget(form.title,{ 'id':'title','attr': {'class': 'validate'} })}}
+                <label for="title">Title</label>
+            </div>
+            <div class="file-field input-field col l6">
+                <div class="btn">
+                    <span> File  </span>
+                    {{form_widget(form.image, { 'id' : 'image' ,'attr': {'type' : 'img'} })}}
                 </div>
-
-            </form>
+                <div class="file-path-wrapper">
+                <input class="file-path validate" type="text" placeholder="upload images">
+                </div>
+            </div>
+            <div id="btn-submit" class="col l6 pull-l2" style="margin-top: 40px;">
+                <button class="btn waves-effect waves-light tomato" type="submit" name="action">Add <i class="material-icons right">send</i> </button>
+            </div>
+            {{ form_rest(form) }}
         </div>
+        {{ form_end(form) }}
     </div>
-    <h2 style="color:white" class="center-content">All Posts From Our Community</h2>
+    <h2 style="color:white; font-size: 24px;" class="center-content">All Posts From Our Community</h2>
+    <div class="row">
     {% for post in posts %}
-        <div class="card center-content">
-        <h3>{{post.title}}</h3>
-        <img src="{{post.image}}" alt="image_du_post"/>
-        <h4>{{post.score}}</h4>
-        <h4>Commentaires:</h4>
-        {%for comment in comments %}
-            {% if comment.post.id == post.id %}
-            <h4>{{comment.text}}</h4>
-            {% endif %}
-        {% endfor %}
+        <div class=" col l6 m6">
+            <div class="card">
+                <div class="card-content center-content">
+                    <h3 style="font-size: 18px">{{post.title}}</h3>
+                    <img src="{{post.image}}" alt="image_du_post" style="max-width: 40%"/>
+                    <span style="font-size: 14px; display: block">{{post.score}}</span>
+                    <h3 style="font-size: 14px">Commentaires:</h3>
+                    {%for comment in comments %}
+                        {% if comment.post.id == post.id %}
+                        <p style="font-size: 14px">{{comment.text}}</p>
+                        {% endif %}
+                    {% endfor %}
+                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                        {{ form_start(form2, {'method': 'POST', 'action' : '/comments'}) }}
+                        <div class="row">
+                            <div class="input-field col l6">
+                                {{form_widget(form2.text,{ 'id':'text','attr': {'class': 'validate materialize-textarea', 'name': 'content'} })}}
+                                <label for="content">commentaire</label>
+                            </div>
+                            {{form_widget(form2.post,{ 'id':'post','attr': {'type': 'hidden', 'value' : '{{  post.id }}' }})}}
+                            {{form_widget(form2.user,{ 'id':'user','attr': {'type': 'hidden', 'value' : '2'} })}}
+                            <div id="btn-submit" class="col l6 pull-l2" style="margin-top: 40px;">
+                                <button class="btn waves-effect waves-light tomato" type="submit" name="action"><i class="material-icons right">send</i> </button>
+                            </div>
+                            {{ form_rest(form2) }}
+                        </div>
+                        {{ form_end(form2) }}
+                    {% endif %}
+                </div>
+            </div>
         </div>
     {% endfor %}
+    </div>
 </div>
 {% endblock %}

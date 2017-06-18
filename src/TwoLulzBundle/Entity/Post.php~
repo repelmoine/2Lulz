@@ -109,4 +109,81 @@ class Post
     {
         return $this->score;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $comments;
+
+    /**
+     * @var \TwoLulzBundle\Entity\User
+     */
+    private $user;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add comment
+     *
+     * @param \TwoLulzBundle\Entity\Comment $comment
+     *
+     * @return Post
+     */
+    public function addComment(\TwoLulzBundle\Entity\Comment $comment)
+    {
+        $this->comments[] = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Remove comment
+     *
+     * @param \TwoLulzBundle\Entity\Comment $comment
+     */
+    public function removeComment(\TwoLulzBundle\Entity\Comment $comment)
+    {
+        $this->comments->removeElement($comment);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \TwoLulzBundle\Entity\User $user
+     *
+     * @return Post
+     */
+    public function setUser(\TwoLulzBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \TwoLulzBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+
 }

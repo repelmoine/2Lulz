@@ -1,26 +1,16 @@
 <?php
 
 namespace TwoLulzBundle\Entity;
-
+use FOS\UserBundle\Model\User as BaseUser;
 /**
  * User
  */
-class User
+class User extends BaseUser
 {
     /**
      * @var int
      */
-    private $id;
-
-    /**
-     * @var string
-     */
-    private $login;
-
-    /**
-     * @var string
-     */
-    private $password;
+    protected $id;
 
 
     /**
@@ -33,51 +23,45 @@ class User
         return $this->id;
     }
 
+
+
     /**
-     * Set login
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $comments;
+
+
+    /**
+     * Add comment
      *
-     * @param string $login
+     * @param \TwoLulzBundle\Entity\Comment $comment
      *
      * @return User
      */
-    public function setLogin($login)
+    public function addComment(\TwoLulzBundle\Entity\Comment $comment)
     {
-        $this->login = $login;
+        $this->comments[] = $comment;
 
         return $this;
     }
 
     /**
-     * Get login
+     * Remove comment
      *
-     * @return string
+     * @param \TwoLulzBundle\Entity\Comment $comment
      */
-    public function getLogin()
+    public function removeComment(\TwoLulzBundle\Entity\Comment $comment)
     {
-        return $this->login;
+        $this->comments->removeElement($comment);
     }
 
     /**
-     * Set password
+     * Get comments
      *
-     * @param string $password
-     *
-     * @return User
+     * @return \Doctrine\Common\Collections\Collection
      */
-    public function setPassword($password)
+    public function getComments()
     {
-        $this->password = $password;
-
-        return $this;
-    }
-
-    /**
-     * Get password
-     *
-     * @return string
-     */
-    public function getPassword()
-    {
-        return $this->password;
+        return $this->comments;
     }
 }
