@@ -30,7 +30,15 @@ class CommentController extends Controller{
         if ($form->isSubmitted() && $form->isValid()) {
 
             $em = $this->getDoctrine()->getManager();
-            $comment = $form->getData();
+
+            $repoPost = $em->getRepository('TwoLulzBundle:Post');
+            $repoUser = $em->getRepository('TwoLulzBundle:User');
+
+            $post = $repoPost->findOneBy(["id" => $comment->getPostId()]);
+            $user = $repoUser->findOneBy(["id" => $comment->getUserId()]);
+
+            $comment->setPost($post);
+            $comment->setUser($user);
             $em->persist($comment);
             $em->flush();
         }

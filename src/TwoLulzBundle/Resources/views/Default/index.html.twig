@@ -65,8 +65,8 @@
                                 {{form_widget(form2.text,{ 'id':'text','attr': {'class': 'validate materialize-textarea', 'name': 'content'} })}}
                                 <label for="content">commentaire</label>
                             </div>
-                            {{form_widget(form2.post,{ 'id':'post','attr': {'type': 'hidden', 'value' : '{{  post.id }}' }})}}
-                            {{form_widget(form2.user,{ 'id':'user','attr': {'type': 'hidden', 'value' : '2'} })}}
+                            {{form_widget(form2.post_id,{ 'id':'post','attr': {'value' : post.id }})}}
+                            {{form_widget(form2.user_id,{ 'id':'user','attr': {'value' : app.user.id} })}}
                             <div id="btn-submit" class="col l6 pull-l2" style="margin-top: 40px;">
                                 <button class="btn waves-effect waves-light tomato" type="submit" name="action"><i class="material-icons right">send</i> </button>
                             </div>

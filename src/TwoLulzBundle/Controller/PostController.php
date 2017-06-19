@@ -32,7 +32,7 @@ class PostController extends Controller{
 
         $post = new Post();
         $form = $this->createForm(PostType::class, $post);
-        $imageUploader =  new ImageUploader('images');
+        $imageUploader =  $this->get('imageUploader');
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

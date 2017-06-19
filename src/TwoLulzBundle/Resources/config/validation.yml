@@ -4,11 +4,11 @@ TwoLulzBundle\Entity\Post:
             - Image:
                 notFoundMessage: Image not uploaded
                 uploadErrorMessage: The image could not upload. Try again
-                minWidth: 200
+                minWidth: 16
                 maxWidthMessage: image trop courte
                 maxWidth: 4000
                 maxWidthMessage: image trop longue
-                minHeight: 200
+                minHeight: 16
                 minHeightMessage: image trop petite
                 maxHeight: 4000
                 maxHeightMessage: image trop grande

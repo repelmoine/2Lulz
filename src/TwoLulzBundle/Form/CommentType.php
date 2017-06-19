@@ -23,8 +23,8 @@ class CommentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('text',Form\TextareaType::class)
-                ->add('post',Form\HiddenType::class)
-                ->add('user',Form\HiddenType::class);
+                ->add('post_id',Form\HiddenType::class)
+                ->add('user_id',Form\HiddenType::class);
     }
 
     /**
