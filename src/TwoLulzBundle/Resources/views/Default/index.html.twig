@@ -52,6 +52,17 @@
                     <h3 style="font-size: 18px">{{post.title}}</h3>
                     <img src="{{post.image}}" alt="image_du_post" style="max-width: 40%"/>
                     <span style="font-size: 14px; display: block">{{post.score}}</span>
+                    <a href="{{ path('nomRoute', {idPost : post.id}) }}"></a>
+                    <form action="{{ path('upvote') }}" action="post">
+                        <input type="hidden" value="{{ post.id }}" name="id_post"/>
+                        <input type="hidden" value="{{ post.score }}" name="score"/>
+                        <input type="submit" value="UpVote"/>
+                    </form>
+                    <form>
+                        <input type="hidden" value="{{ post.id }}" name="id_post"/>
+                        <input type="hidden" value="{{ post.score }}" name="score"/>
+                        <input type="submit" value="DownVote"/>
+                    </form>
                     <h3 style="font-size: 14px">Commentaires:</h3>
                     {%for comment in comments %}
                         {% if comment.post.id == post.id %}

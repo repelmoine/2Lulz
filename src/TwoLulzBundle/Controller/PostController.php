@@ -53,4 +53,14 @@ class PostController extends Controller{
 
         return $this->redirectToRoute('two_lulz_homepage');
     }
+
+    public function postPostVoteAction(Request $request, $idPost, $value){
+
+
+
+        $em = $this->getDoctrine()->getManager();
+        $repository = $em->getRepository('TwoLulzBundle:Post');
+
+        //$post = $repository->findOneBy(["id" => ])
+    }
 }
