@@ -1,11 +1,32 @@
 two_lulz_homepage:
     path: /
     defaults: {_controller:TwoLulzBundle:Post:index}
+    methods: [GET]
 
-posts:
-    type: rest
-    resource: "@TwoLulzBundle/Controller/PostController.php"
+upvote:
+    path: /upvote/{id}
+    defaults: {_controller:TwoLulzBundle:Post:upVote}
+    methods: [GET, POST]
+    requirements:
+            id: \d+
 
-comments:
-    type: rest
-    resource: "@TwoLulzBundle/Controller/CommentController.php"
+downvote:
+    path: /downvote/{id}
+    defaults: {_controller:TwoLulzBundle:Post:downVote}
+    methods: [GET, POST]
+    requirements:
+            id: \d+
+
+addPost:
+    path:     /addPost
+    defaults: { _controller:TwoLulzBundle:Post:addPosts }
+    requirements:
+            _method: POST
+
+addComment:
+    path: /addComment
+    defaults: { _controller:TwoLulzBundle:Comment:addComment }
+    requirements:
+            _method: POST
+
+

@@ -21,7 +21,7 @@ use TwoLulzBundle\Form\CommentType;
 class CommentController extends Controller{
 
 
-    public function postCommentAction(Request $request){
+    public function addCommentAction(Request $request){
 
         $comment = new Comment();
         $form = $this->createForm(CommentType::class,$comment);

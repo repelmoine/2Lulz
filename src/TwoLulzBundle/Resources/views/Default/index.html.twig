@@ -21,7 +21,7 @@
 
 <div class="container">
     <div class="card center-content col l12" style="padding: 20px; margin-top: 40px;">
-        {{ form_start(form, {'method': 'POST', 'action' : '/posts'}) }}
+        {{ form_start(form, {'method': 'POST', 'action' : '/addPost'}) }}
         <div class="row">
             <div class="input-field col l6">
                 {{form_widget(form.title,{ 'id':'title','attr': {'class': 'validate'} })}}
@@ -36,6 +36,7 @@
                 <input class="file-path validate" type="text" placeholder="upload images">
                 </div>
             </div>
+            {{form_widget(form.user_id,{ 'attr': {'value' : app.user.id} })}}
             <div id="btn-submit" class="col l6 pull-l2" style="margin-top: 40px;">
                 <button class="btn waves-effect waves-light tomato" type="submit" name="action">Add <i class="material-icons right">send</i> </button>
             </div>
@@ -50,19 +51,12 @@
             <div class="card">
                 <div class="card-content center-content">
                     <h3 style="font-size: 18px">{{post.title}}</h3>
-                    <img src="{{post.image}}" alt="image_du_post" style="max-width: 40%"/>
+                    <img src="images/{{post.image}}" alt="image_du_post" style="max-width: 40%"/>
                     <span style="font-size: 14px; display: block">{{post.score}}</span>
-                    <a href="{{ path('nomRoute', {idPost : post.id}) }}"></a>
-                    <form action="{{ path('upvote') }}" action="post">
-                        <input type="hidden" value="{{ post.id }}" name="id_post"/>
-                        <input type="hidden" value="{{ post.score }}" name="score"/>
-                        <input type="submit" value="UpVote"/>
-                    </form>
-                    <form>
-                        <input type="hidden" value="{{ post.id }}" name="id_post"/>
-                        <input type="hidden" value="{{ post.score }}" name="score"/>
-                        <input type="submit" value="DownVote"/>
-                    </form>
+                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                        <a href="{{ path('upvote',{id : post.id}) }}">+1</a>
+                        <a href="{{ path('downvote',{id : post.id}) }}">-1</a>
+                    {% endif %}
                     <h3 style="font-size: 14px">Commentaires:</h3>
                     {%for comment in comments %}
                         {% if comment.post.id == post.id %}
@@ -70,14 +64,15 @@
                         {% endif %}
                     {% endfor %}
                     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                        {{ form_start(form2, {'method': 'POST', 'action' : '/comments'}) }}
+                        {% set form2 = formComment.createView %}
+                        {{ form_start(form2, {'method': 'POST', 'action' : '/addComment'}) }}
                         <div class="row">
                             <div class="input-field col l6">
                                 {{form_widget(form2.text,{ 'id':'text','attr': {'class': 'validate materialize-textarea', 'name': 'content'} })}}
                                 <label for="content">commentaire</label>
                             </div>
-                            {{form_widget(form2.post_id,{ 'id':'post','attr': {'value' : post.id }})}}
-                            {{form_widget(form2.user_id,{ 'id':'user','attr': {'value' : app.user.id} })}}
+                            {{form_widget(form2.post_id,{ 'attr': {'value' : post.id }}) }}
+                            {{form_widget(form2.user_id,{ 'attr': {'value' : app.user.id} })}}
                             <div id="btn-submit" class="col l6 pull-l2" style="margin-top: 40px;">
                                 <button class="btn waves-effect waves-light tomato" type="submit" name="action"><i class="material-icons right">send</i> </button>
                             </div>

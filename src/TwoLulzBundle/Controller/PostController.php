@@ -24,10 +24,10 @@ class PostController extends Controller{
         $form2 = $this->createForm(CommentType::class,$comment);
         $repository2 = $em->getRepository('TwoLulzBundle:Comment');
         $allComments = $repository2->findAll();
-        return $this->render('TwoLulzBundle:Default:index.html.twig', ['form' => $form->createView(),'form2' => $form2->createView(), 'posts' => $allPosts, 'comments' => $allComments]);
+        return $this->render('TwoLulzBundle:Default:index.html.twig', ['form' => $form->createView(),'formComment' => $form2, 'posts' => $allPosts, 'comments' => $allComments]);
     }
     
-    public function postPostsAction(Request $request)
+    public function addPostsAction(Request $request)
     {
 
         $post = new Post();
@@ -37,11 +37,15 @@ class PostController extends Controller{
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            $em = $this->getDoctrine()->getManager();
+            $repoUser = $em->getRepository('TwoLulzBundle:User');
+            $user = $repoUser->findOneBy(["id" => $post->getUserId()]);
+            $post->setUser($user);
+
             $file = $post->getImage();
             $fileName = $imageUploader->upload($file);
             $post->setImage($fileName);
-            $em = $this->getDoctrine()->getManager();
-            $post = $form->getData();
+
             $post->setScore(0);
             $em->persist($post);
             $em->flush();
@@ -54,13 +58,30 @@ class PostController extends Controller{
         return $this->redirectToRoute('two_lulz_homepage');
     }
 
-    public function postPostVoteAction(Request $request, $idPost, $value){
-
-
-
+    public function upVoteAction($id){
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('TwoLulzBundle:Post');
 
-        //$post = $repository->findOneBy(["id" => ])
+        $post = $repository->find($id);
+        $post->setScore($post->getScore() + 1);
+        $em->persist($post);
+        $em->flush();
+
+        return $this->redirectToRoute('two_lulz_homepage');
     }
+
+    public function downVoteAction($id){
+        $em = $this->getDoctrine()->getManager();
+        $repository = $em->getRepository('TwoLulzBundle:Post');
+
+        $post = $repository->find($id);
+        $score = $post->getScore();
+
+        $post->setScore($score - 1);
+        $em->persist($post);
+        $em->flush();
+
+        return $this->redirectToRoute('two_lulz_homepage');
+    }
+
 }

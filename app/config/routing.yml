@@ -5,4 +5,9 @@ two_lulz:
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
 
+#REST
+rest :
+  type : rest
+  resource : "@TwoLulzBundle/Resources/config/routing_rest.yml"
+  prefix : /api
 
