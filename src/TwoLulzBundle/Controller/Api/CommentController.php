@@ -8,14 +8,40 @@
 
 namespace TwoLulzBundle\Controller\Api;
 
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FOS\RestBundle\Routing\ClassResourceInterface;
+use Symfony\Component\HttpFoundation\Response;
 
 
-class CommentController implements ClassResourceInterface
+
+class CommentController extends Controller implements ClassResourceInterface
 {
 
-    public function getAction(){
+    public function cgetAction(){
 
+        $allComments = $this->get('apiUtils')->getCommentManager()->findAll();
+
+        $serializer = $this->get('jms_serializer');
+        $json = $serializer->serialize($allComments, 'json');
+
+        $response = new Response($json);
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
+
+    public function getAction($postId){
+        $em = $this->getDoctrine()->getManager();
+        $repository2 = $em->getRepository('TwoLulzBundle:Comment');
+        $allComments = $repository2->findAll();
+
+        $serializer = $this->get('jms_serializer');
+        $json = $serializer->serialize($allComments, 'json');
+
+        $response = new Response($json);
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
     }
 
     public function postAction($id){
@@ -33,5 +59,7 @@ class CommentController implements ClassResourceInterface
     public function deleteAction($id){
 
     }
+
+
 
 }

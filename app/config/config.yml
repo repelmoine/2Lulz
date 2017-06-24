@@ -37,7 +37,7 @@ framework:
         log: true
     validation: { enabled: true }
     serializer:
-        enabled: false
+        enabled: true
 
 # Twig Configuration
 twig:
@@ -85,5 +85,6 @@ fos_user:
 fos_rest:
     routing_loader:
         include_format:  false
+        default_format: json
     serializer:
         serialize_null:  true

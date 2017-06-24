@@ -10,6 +10,7 @@ namespace TwoLulzBundle\Controller\Api;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FOS\RestBundle\Routing\ClassResourceInterface;
+use Symfony\Component\HttpFoundation\Response;
 
 
 class PostController extends Controller implements ClassResourceInterface
@@ -24,22 +25,21 @@ class PostController extends Controller implements ClassResourceInterface
 
 
 
-        $repository2 = $em->getRepository('TwoLulzBundle:Comment');
-        $allComments = $repository2->findAll();
-
-        json_encode($allComments,0);
-        json_encode($allPosts,0);
-
-        return array('posts' => $allPosts,'comments' => $allComments);
+        return $response;
     }
 
     public function getAction($id){
         $em = $this->getDoctrine()->getManager();
         $repoUser = $em->getRepository('TwoLulzBundle:Post');
         $post = $repoUser->findOneBy(["id" => $id]);
-        json_encode($post,0);
 
-        return array('post' => $post);
+        $serializer = $this->get('jms_serializer');
+        $json = $serializer->serialize($post, 'json');
+
+        $response = new Response($json);
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
     }
 
     public function postAction($id){

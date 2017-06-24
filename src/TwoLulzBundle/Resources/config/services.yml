@@ -1,8 +1,9 @@
 services:
-#    two_lulz.example:
-#        class: TwoLulzBundle\Example
-#        arguments: ["@service_id", "plain_value", "%parameter%"]
      imageUploader:
               class: TwoLulzBundle\Service\ImageUploader
               arguments:
                    $targetDir: '%images%'
+     apiUtils:
+              class: TwoLulzBundle\Service\ApiUtils
+              arguments:
+                  $em: '@doctrine.orm.entity_manager'
