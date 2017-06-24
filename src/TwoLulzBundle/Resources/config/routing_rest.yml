@@ -1,7 +1,7 @@
 posts:
     type: rest
-    resource: "@TwoLulzBundle/Controller/PostController.php"
+    resource: "@TwoLulzBundle/Controller/Api/PostController.php"
 
 comments:
     type: rest
-    resource: "@TwoLulzBundle/Controller/CommentController.php"
+    resource: "@TwoLulzBundle/Controller/Api/CommentController.php"

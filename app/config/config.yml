@@ -84,6 +84,6 @@ fos_user:
 
 fos_rest:
     routing_loader:
-        default_format: json
+        include_format:  false
     serializer:
         serialize_null:  true
