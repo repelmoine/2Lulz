@@ -2,7 +2,7 @@ services:
      imageUploader:
               class: TwoLulzBundle\Service\ImageUploader
               arguments:
-                   $targetDir: '%images%'
+                   $targetDir: 'images'
      apiUtils:
               class: TwoLulzBundle\Service\ApiUtils
               arguments:

@@ -15,6 +15,9 @@ Ce qui a été fait:
     - mise en place d'une api rest.
     - 2 tests
     - propriétés à serializer
+    - création de 2 services:
+        ° ImageUploader (pourquoi ? => déplacer image dans un répertoire spécifique)
+        ° ApiUtils (pourquoi ? => factoriser le code)
     
 Ce qui n'a pas été fait
 
