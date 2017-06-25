@@ -19,45 +19,43 @@ class CommentController extends Controller implements ClassResourceInterface
 
     public function cgetAction(){
 
-        $allComments = $this->get('apiUtils')->getCommentManager()->findAll();
+        $apiService = $this->get('apiUtils');
+        $allComments = $apiService->getCommentManager()->findAll();
 
-        $serializer = $this->get('jms_serializer');
-        $json = $serializer->serialize($allComments, 'json');
+        return  $apiService->serializeAndSetResponseJson($allComments);
 
-        $response = new Response($json);
-        $response->headers->set('Content-Type', 'application/json');
-
-        return $response;
     }
 
     public function getAction($postId){
-        $em = $this->getDoctrine()->getManager();
-        $repository2 = $em->getRepository('TwoLulzBundle:Comment');
-        $allComments = $repository2->findAll();
 
-        $serializer = $this->get('jms_serializer');
-        $json = $serializer->serialize($allComments, 'json');
+        $apiService = $this->get('apiUtils');
+        $comment = $apiService->getCommentManager()->findOneBy(["post" => $postId]);
 
-        $response = new Response($json);
-        $response->headers->set('Content-Type', 'application/json');
-
-        return $response;
+        return $apiService->serializeAndSetResponseJson($comment);
     }
 
     public function postAction($id){
-
+        //TODO
     }
 
     public function putAction($id){
-
+        //TODO
     }
 
     public function newAction(){
-
+        //TODO
     }
 
     public function deleteAction($id){
+        $apiService = $this->get('apiUtils');
+        $comment = $apiService->getCommentManager()->findOneBy(["id" => $id]);
 
+        $apiService->getEntityManager()->remove($comment);
+        $apiService->getEntityManager()->flush();
+
+        $response = $apiService->serializeAndSetResponseJson("","204");
+
+        return $response;
     }
 
 

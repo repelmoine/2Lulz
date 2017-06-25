@@ -9,29 +9,45 @@
 namespace TwoLulzBundle\Service;
 
 use Doctrine\ORM\EntityManager;
+use JMS\Serializer\Serializer;
 use Symfony\Component\HttpFoundation\Response;
 
 class ApiUtils
 {
 
     private $em;
+    private $serializer;
 
-    public function __construct(EntityManager $em)
+    public function __construct(EntityManager $em, Serializer $serializer)
     {
         $this->em = $em;
+        $this->serializer = $serializer;
     }
-
-
 
     public function getPostManager(){
         return $this->em->getRepository('TwoLulzBundle:Post');
     }
 
-    public function setSerializeAndResponseJson($data){
-        $serializer = $this->get('jms_serializer');
-        $json = $serializer->serialize($data, 'json');
+    public function getCommentManager(){
+        return $this->em->getRepository('TwoLulzBundle:Comment');
+    }
 
-        $response = new Response($json);
-        $response->headers->set('Content-Type', 'application/json');
+    public function serializeAndSetResponseJson($data,$codeStatus = "200"){
+
+        if(!empty($data)){
+            $json = $this->serializer->serialize($data, 'json');
+
+            $response = new Response($json,$codeStatus);
+            $response->headers->set('Content-Type', 'application/json');
+        }else{
+            $response = new Response("",$codeStatus);
+        }
+
+
+        return $response;
+    }
+
+    public function getEntityManager(){
+        return $this->em;
     }
 }

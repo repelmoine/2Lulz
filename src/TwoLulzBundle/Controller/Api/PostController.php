@@ -19,43 +19,41 @@ class PostController extends Controller implements ClassResourceInterface
 
     public function cgetAction(){
 
-        $em = $this->getDoctrine()->getManager();
-        $repository = $em->getRepository('TwoLulzBundle:Post');
-        $allPosts = $repository->findAll();
+        $apiService = $this->get('apiUtils');
+        $allPosts = $apiService->getPostManager()->findAll();
 
-
-
-        return $response;
+        return  $apiService->serializeAndSetResponseJson($allPosts);
     }
 
     public function getAction($id){
-        $em = $this->getDoctrine()->getManager();
-        $repoUser = $em->getRepository('TwoLulzBundle:Post');
-        $post = $repoUser->findOneBy(["id" => $id]);
+        $apiService = $this->get('apiUtils');
+        $post = $apiService->getPostManager()->findOneBy(["id" => $id]);
 
-        $serializer = $this->get('jms_serializer');
-        $json = $serializer->serialize($post, 'json');
-
-        $response = new Response($json);
-        $response->headers->set('Content-Type', 'application/json');
-
-        return $response;
+        return $apiService->serializeAndSetResponseJson($post);
     }
 
     public function postAction($id){
-
+        //TODO
     }
 
     public function putAction($id){
-
+        //TODO
     }
 
     public function newAction(){
-
+        //TODO
     }
 
     public function deleteAction($id){
+        $apiService = $this->get('apiUtils');
+        $post = $apiService->getPostManager()->findOneBy(["id" => $id]);
 
+        $apiService->getEntityManager()->remove($post);
+        $apiService->getEntityManager()->flush();
+
+        $response = $apiService->serializeAndSetResponseJson("","204");
+
+        return $response;
     }
 
 

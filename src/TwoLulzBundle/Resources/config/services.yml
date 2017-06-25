@@ -7,3 +7,4 @@ services:
               class: TwoLulzBundle\Service\ApiUtils
               arguments:
                   $em: '@doctrine.orm.entity_manager'
+                  $serializer: '@jms_serializer'

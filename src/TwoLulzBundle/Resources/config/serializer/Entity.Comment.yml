@@ -1,0 +1,10 @@
+TwoLulzBundle\Entity\Comment:
+
+  exclusion_policy: ALL
+  properties :
+      id:
+      text:
+          expose : true
+      post:
+      user:
+          expose: false

@@ -20,6 +20,7 @@
 
 
 <div class="container">
+    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
     <div class="card center-content col l12" style="padding: 20px; margin-top: 40px;">
         {{ form_start(form, {'method': 'POST', 'action' : '/addPost'}) }}
         <div class="row">
@@ -36,7 +37,7 @@
                 <input class="file-path validate" type="text" placeholder="upload images">
                 </div>
             </div>
-            {{form_widget(form.user_id,{ 'attr': {'value' : app.user.id} })}}
+                {{form_widget(form.user_id,{ 'attr': {'value' : app.user.id} })}}
             <div id="btn-submit" class="col l6 pull-l2" style="margin-top: 40px;">
                 <button class="btn waves-effect waves-light tomato" type="submit" name="action">Add <i class="material-icons right">send</i> </button>
             </div>
@@ -44,6 +45,7 @@
         </div>
         {{ form_end(form) }}
     </div>
+    {% endif %}
     <h2 style="color:white; font-size: 24px;" class="center-content">All Posts From Our Community</h2>
     <div class="row">
     {% for post in posts %}
