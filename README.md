@@ -44,6 +44,12 @@ Surplus:
     
     - php bin/console server:run
     
+    Creation base de données:
+    
+    - php bin/console doctrine:database:create
+    
+    
+    
     
     Procédure: 
     
